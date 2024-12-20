@@ -6,9 +6,10 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
 router.post('session', [SessionController, 'store'])
+router.delete('session', [SessionController, 'destroy']).use(middleware.auth())
 
 router.resource('user', UsersController).apiOnly()
 router.group(() => {
     router.resource('task', TasksController)
 })
-.use(middleware.auth());
+.use(middleware.auth()); 
